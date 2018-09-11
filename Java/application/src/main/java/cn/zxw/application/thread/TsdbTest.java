@@ -46,6 +46,7 @@ public class TsdbTest {
 					lock.unlock();
 					int runtime = 0;
 					long timestamp = System.currentTimeMillis()/1000;
+					timestamp = timestamp - 3600;
 					while(runtime < seconds) {
 						for (int m = 0; m < metricNum; m++) {
 							String metric = device+"-"+index+"-"+m;
