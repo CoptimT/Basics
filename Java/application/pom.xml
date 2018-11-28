@@ -100,7 +100,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>cn.zxw.application.thread.TsdbTest</mainClass>
+							<mainClass>cn.zxw.application.Application</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
