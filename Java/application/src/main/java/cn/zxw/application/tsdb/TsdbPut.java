@@ -80,7 +80,7 @@ public class TsdbPut {
 				System.out.println("Http Rrror: " + e.getLocalizedMessage());
 			}
 			try {
-				Thread.sleep(60);
+				Thread.sleep(interval);
 			} catch (InterruptedException e) {
 			}
 			tmpTime = System.currentTimeMillis()/1000;

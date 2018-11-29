@@ -24,40 +24,43 @@ import cn.zxw.application.utils.HttpUtil;
  * metric = metricPrifix + "thd" + thdIndex + "mtc" + metricIndex
  * tagk: host, tagv: web + tagIndex
  * 
- * java -jar test.jar http://172.17.171.15:4242/api/put?details 2 10 50 1 device
+ * java -jar test.jar http://172.17.171.15:4242/api/put?details 2 10 50 1 device int
  * url threadNum metricNum tagNum seconds metric dataType
  */
-public class TsdbPutString {
+public class TsdbPutHistory {
 	//默认参数
 	static String url = "http://localhost:4242/api/put?details";
 	static int threadNum = 1;
 	static int metricNum = 1;
 	static int tagNum = 1;
-	static int seconds = 60;
+	static long seconds = 60;
 	static String metricPrifix = "Temperature";
 	static String dataType = "int";
+	static long starttime = 1542643200000L;
 	
 	static Random random=new Random();
-	static long sleepMillis = 50;
+	static long sleepMillis = 10;
 	
 	public static void main(String[] args) {
 		try {
 			//参数传递
-			/*url = args[0];
+			url = args[0];
 			threadNum = Integer.parseInt(args[1]);
 			metricNum = Integer.parseInt(args[2]);
 			tagNum = Integer.parseInt(args[3]);
 			seconds = Integer.parseInt(args[4]);
 			metricPrifix = args[5];
-			dataType = args[6];*/
+			dataType = args[6];
+			starttime = Long.parseLong(args[7]);
 			//自定义
-			url = "http://172.17.171.15:8300/put?details";
-			threadNum = 50;
-			metricNum = 200;
+			/*url = "http://172.17.171.15:8300/put?details";
+			threadNum = 1;
+			metricNum = 1;
 			tagNum = 1;
 			seconds = 60;
 			metricPrifix = "Temp";
-			dataType = "string";
+			dataType = "int";
+			starttime = 1542643200000L;*/
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}finally {
@@ -80,14 +83,15 @@ public class TsdbPutString {
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
 					int thdIndex = threadIndex.incrementAndGet();
-					long starttime = System.currentTimeMillis()/1000;
-					long timestamp = System.currentTimeMillis()/1000;
+					//long starttime = System.currentTimeMillis()/1000;
+					long timestamp = starttime;
+					long runtime = 0;
 					
 					int top = 100;
 					int bottom = 5;
 					int flag = 1;  //-1 数值降, 1数值升
 					
-					while((timestamp - starttime) < seconds) {
+					while(runtime < seconds) {
 						int value = 50;//bottom < value < top
 						if(dataType.equals("int")) {//确定写入value大小，模拟数值周期波动，而不是随机值
 							int change = random.nextInt(3);
@@ -135,7 +139,7 @@ public class TsdbPutString {
 								e.printStackTrace();
 							}
 						}
-						while(true) {
+						/*while(true) {
 							long now = System.currentTimeMillis()/1000;
 							if(now - timestamp > 1) {
 								System.out.println(Thread.currentThread().getName() + " put slow than expect...");
@@ -148,6 +152,15 @@ public class TsdbPutString {
 								Thread.sleep(sleepMillis);
 							} catch (InterruptedException e) {
 							}
+						}*/
+						timestamp += 60;
+						runtime = (timestamp - starttime)/1000;
+						if(runtime % 10 == 0) {
+							System.out.println(Thread.currentThread().getName() + " run " + runtime + "/" + seconds);
+						}
+						try {
+							Thread.sleep(sleepMillis);
+						} catch (InterruptedException e) {
 						}
 					}
 					System.out.println(Thread.currentThread().getName() + " run "+ (System.currentTimeMillis()/1000 - starttime) +" seconds");
