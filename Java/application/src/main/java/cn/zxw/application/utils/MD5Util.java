@@ -3,6 +3,7 @@ package cn.zxw.application.utils;
 import java.security.MessageDigest;
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -50,6 +51,26 @@ public final class MD5Util {
 	public static byte[] md5(byte[] content) throws Exception {
 		MessageDigest mDigest = MessageDigest.getInstance("MD5");
 		return mDigest.digest(content); 
+	}
+	
+	/**
+	 * MD5方法
+	 * @param text 明文
+	 * @param key 密钥
+	 * @return 密文
+	 * @throws Exception
+	 */
+	public static String md5(String text, String key) throws Exception {
+		// 加密后的字符串
+		return DigestUtils.md5Hex(text + key);
+	}
+	
+	public static void main(String[] args) {
+		try {
+			System.out.println(md5("hello","world"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

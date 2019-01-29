@@ -14,6 +14,7 @@ import cn.zxw.application.utils.HttpUtil;
  * OpenTSDB写入一些数据
  * java -jar application-0.0.1-SNAPSHOT-jar-with-dependencies.jar 24 7200 60
  * java -jar application-0.0.1-SNAPSHOT-jar-with-dependencies.jar 24 7200 60 Temperature http://172.17.171.15:4242/api/put?details
+ * nohup java -cp application-0.0.1-SNAPSHOT-jar-with-dependencies.jar cn.zxw.application.tsdb.TsdbPut 5 21600 1000 &
  * tagNum seconds interval metric url
  */
 public class TsdbPut {

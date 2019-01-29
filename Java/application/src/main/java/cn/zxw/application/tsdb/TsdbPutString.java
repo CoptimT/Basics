@@ -38,7 +38,7 @@ public class TsdbPutString {
 	static String dataType = "int";
 	
 	static Random random=new Random();
-	static long sleepMillis = 50;
+	static long sleepMillis = 200;
 	
 	public static void main(String[] args) {
 		try {
@@ -51,10 +51,10 @@ public class TsdbPutString {
 			metricPrifix = args[5];
 			dataType = args[6];*/
 			//自定义
-			url = "http://172.17.171.15:8300/put?details";
-			threadNum = 50;
-			metricNum = 200;
-			tagNum = 1;
+			url = "http://172.17.170.158:8300/put?details";
+			threadNum = 10;
+			metricNum = 5;
+			tagNum = 10;
 			seconds = 60;
 			metricPrifix = "Temp";
 			dataType = "string";
