@@ -9,7 +9,7 @@ public class TestDeferred {
 	public static void main(String[] args) {
 		System.out.println(Thread.currentThread().getName() + " start...");
 		
-		Deferred<String> deferred = new Deferred<>().addBoth(str -> {
+		Deferred<String> deferred = new Deferred<String>().addBoth(str -> {
 			System.out.println(Thread.currentThread().getName() + " 1 " + str.toString());
 			return str;
 		}).addBothDeferring(str -> {
