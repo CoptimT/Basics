@@ -1,9 +1,9 @@
 package day1
 
 import (
-	"fmt"
+//	"fmt"
 )
 
 func main1() {
-	fmt.Println(a)
+	Bool()
 }

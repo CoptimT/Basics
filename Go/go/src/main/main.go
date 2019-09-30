@@ -41,6 +41,7 @@ func func_init(){
 func run_day1(){
 	//var_const.go
 	day1.Var_const()
+	day1.DataType()
 }
 
 
